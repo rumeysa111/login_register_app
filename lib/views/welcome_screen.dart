@@ -46,97 +46,91 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          // Ana içerik
+          // Hoş Geldiniz yazısı
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.3,
+            top: MediaQuery.of(context).size.height * 0.3, // Üstten 10% mesafe
             left: 20,
             right: 20,
-            child: Center(
-              child: Container(
-                padding: const EdgeInsets.all(40.0),
-                margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(20.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 15,
-                      offset: Offset(0, 5),
-                    ),
-                  ],
+            child: Column(
+              children: [
+                const Text(
+                  'Hoş Geldiniz',
+                  style: TextStyle(
+                    fontSize: 76,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.2,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      'Hoş Geldiniz',
-                      style: TextStyle(
-                        fontSize: 36,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
-                        color: Colors.black87,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Uygulamamıza giriş yapın veya yeni bir hesap oluşturun.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black54,
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4D4FFF),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 60,
-                          vertical: 15,
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
-                      },
-                      icon: const Icon(Icons.login),
-                      label: const Text('Giriş Yap'),
-                    ),
-                    const SizedBox(height: 10),
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF2D2F94),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 60,
-                          vertical: 15,
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegisterScreen(),
-                          ),
-                        );
-                      },
-                      icon: const Icon(Icons.app_registration),
-                      label: const Text('Kayıt Ol'),
-                    ),
-                  ],
+                const SizedBox(height: 10),
+                const Text(
+                  'Uygulamamıza giriş yapın veya yeni bir hesap oluşturun.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white70,
+                  ),
                 ),
+              ],
+            ),
+          ),
+          // Butonlar
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF171ED6),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 60,
+                        vertical: 15,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.login),
+                    label: const Text('Giriş Yap'),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF1A1A77),
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 60,
+                        vertical: 15,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterScreen(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.app_registration),
+                    label: const Text('Kayıt Ol'),
+                  ),
+                ],
               ),
             ),
           ),

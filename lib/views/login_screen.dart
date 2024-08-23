@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           // Ana içerik
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.3,
+            top: MediaQuery.of(context).size.height * 0.2,
             left: 20,
             right: 20,
             child: Center(
