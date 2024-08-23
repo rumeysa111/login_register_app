@@ -48,7 +48,7 @@ class WelcomeScreen extends StatelessWidget {
           ),
           // Hoş Geldiniz yazısı
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.3, // Üstten 10% mesafe
+            top: MediaQuery.of(context).size.height * 0.3,
             left: 20,
             right: 20,
             child: Column(

@@ -62,11 +62,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false, // Bu özellik klavye açıldığında ekranın yeniden boyutlandırılmasını engeller
+      resizeToAvoidBottomInset: false,
 
       body: Stack(
         children: [
-          // Üstteki renkli daireler
+
           Positioned(
             top: -50,
             left: -30,
@@ -109,7 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           // Ana içerik
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.2, // Ekran yüksekliğinin %20'si
+            top: MediaQuery.of(context).size.height * 0.2,
             left: 20,
             right: 20,
             child: Center(
@@ -118,8 +118,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 padding: const EdgeInsets.all(40.0),
                 margin: const EdgeInsets.symmetric(horizontal: 20.0),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9), // Hafif gri saydam arka plan
-                  borderRadius: BorderRadius.circular(20.0), // Yuvarlatılmış köşeler
+                  color: Colors.white.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(20.0),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),

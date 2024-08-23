@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:login_register_app/views/profile_screen.dart';
 import 'package:login_register_app/views/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -56,9 +57,28 @@ class _LoginScreenState extends State<LoginScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Giriş Başarılı')),
       );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfileScreen()),
+      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Giriş başarısız')),
+        SnackBar(content: Text('Giriş başarısız: $e')),
+      );
+    }
+  }
+
+  Future<void> _resetPassword() async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: _emailController.text,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Şifre sıfırlama bağlantısı e-postanıza gönderildi')),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('E-posta gönderilemedi: $e')),
       );
     }
   }
@@ -209,9 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         TextButton(
-                          onPressed: () {
-                            // Şifremi Unuttum sayfasına yönlendirme kodu
-                          },
+                          onPressed: _resetPassword,
                           child: const Text(
                             'Şifremi Unuttum',
                             style: TextStyle(color: Colors.black),
@@ -280,6 +298,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             'Kayıt Ol',
                             style: TextStyle(
                               color: Color(0xFF2B2B6A),
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
@@ -290,25 +309,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          // Sabit renkli daire
-          // Sabit renkli daire
-          Positioned(
-            bottom: -70,
-            right: -60,
-            child: Container(
-              width: 150,
-              height: 140,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF2D2F94), Color(0xFF4D4FFF)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-
         ],
       ),
     );
