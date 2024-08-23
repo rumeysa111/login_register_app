@@ -37,7 +37,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace = "com.example.flutter_firebase"
+    namespace = "com.example.login_register_app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
