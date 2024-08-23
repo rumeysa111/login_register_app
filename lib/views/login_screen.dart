@@ -16,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   bool _isPasswordVisible = true;
+  bool _rememberMe = false;
 
   @override
   void dispose() {
@@ -30,15 +31,14 @@ class _LoginScreenState extends State<LoginScreen> {
       if (googleUser == null) {
         return;
       }
-      final GoogleSignInAuthentication googleAuth =
-      await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Google ile giriş başarılı')),
+        const SnackBar(content: Text('Google ile giriş başarılı')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -50,18 +50,23 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _login() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text, password: _passwordController.text);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Giriş Başarılı')));
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Giriş Başarılı')),
+      );
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Giriş başarısız')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Giriş başarısız')),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           // Üstteki renkli daireler
@@ -71,8 +76,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Container(
               width: 250,
               height: 250,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
                   colors: [Color(0xFF2D2F94), Color(0xFF4D4FFF)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -107,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           // Ana içerik
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.3, // Ekran yüksekliğinin %30'u
+            top: MediaQuery.of(context).size.height * 0.3,
             left: 20,
             right: 20,
             child: Center(
@@ -116,13 +121,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 padding: const EdgeInsets.all(40.0),
                 margin: const EdgeInsets.symmetric(horizontal: 20.0),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9), // Hafif gri saydam arka plan
-                  borderRadius: BorderRadius.circular(20.0), // Yuvarlatılmış köşeler
+                  color: Colors.white.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(20.0),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),
                       blurRadius: 10,
-                      offset: Offset(0, 4),
+                      offset: const Offset(0, 4),
                     ),
                   ],
                 ),
@@ -149,9 +154,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextField(
                       controller: _emailController,
                       decoration: InputDecoration(
-                        labelText: 'E posta',
-                        hintText: 'E postanızı girin',
-                        prefixIcon: Icon(Icons.email_outlined),
+                        labelText: 'E-posta',
+                        hintText: 'E-postanızı girin',
+                        prefixIcon: const Icon(Icons.email_outlined),
                         filled: true,
                         fillColor: Colors.grey[200],
                         border: OutlineInputBorder(
@@ -167,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                         labelText: 'Şifre',
                         hintText: 'Şifrenizi girin',
-                        prefixIcon: Icon(Icons.lock_outline),
+                        prefixIcon: const Icon(Icons.lock_outline),
                         filled: true,
                         fillColor: Colors.grey[200],
                         border: OutlineInputBorder(
@@ -176,9 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
                           ),
                           onPressed: () {
                             setState(() {
@@ -195,17 +198,24 @@ class _LoginScreenState extends State<LoginScreen> {
                         Row(
                           children: [
                             Checkbox(
-                              value: true,
-                              onChanged: (value) {},
+                              value: _rememberMe,
+                              onChanged: (value) {
+                                setState(() {
+                                  _rememberMe = value!;
+                                });
+                              },
                             ),
                             const Text("Beni Hatırla"),
                           ],
                         ),
                         TextButton(
                           onPressed: () {
-                            // Şifremi Unuttum sayfasına yönlendirme
+                            // Şifremi Unuttum sayfasına yönlendirme kodu
                           },
-                          child: const Text('Şifremi Unuttum',style: TextStyle(color: Colors.black),),
+                          child: const Text(
+                            'Şifremi Unuttum',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                       ],
                     ),
@@ -222,8 +232,35 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: const Center(
                         child: Text(
                           'Oturum Aç',
-                          style: TextStyle(fontSize: 18,color: Colors.white),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    // Google ile oturum aç düğmesi
+                    ElevatedButton(
+                      onPressed: _signInWithGoogle,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/logo/google_logo.png',
+                            height: 24,
+                            width: 24,
+                          ),
+                          const SizedBox(width: 10),
+                          const Text(
+                            'Google ile Oturum Aç',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -234,9 +271,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextButton(
                           onPressed: () {
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => RegisterScreen()));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const RegisterScreen()),
+                            );
                           },
                           child: const Text(
                             'Kayıt Ol',
@@ -253,13 +291,15 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           // Sabit renkli daire
-          Align(
-            alignment: Alignment.bottomRight,
+          // Sabit renkli daire
+          Positioned(
+            bottom: -70,
+            right: -60,
             child: Container(
-              width: 180,
-              height: 150,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
+              width: 150,
+              height: 140,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
                   colors: [Color(0xFF2D2F94), Color(0xFF4D4FFF)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -268,6 +308,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
+
         ],
       ),
     );

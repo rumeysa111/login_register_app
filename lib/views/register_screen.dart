@@ -291,8 +291,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
           // Alttaki renkli daireler
           Positioned(
-            bottom: 0,
-            right: -50,
+            bottom: -60,
+            right: -60,
             child: Container(
               width: 180,
               height: 140,

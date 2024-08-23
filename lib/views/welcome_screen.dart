@@ -10,65 +10,59 @@ class WelcomeScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // Üstteki renkli daireler
-          Positioned(
-            top: -50,
-            left: -30,
+          // Arka plan gradient ve daireler
+          Positioned.fill(
             child: Container(
-              width: 250,
-              height: 250,
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
+                gradient: LinearGradient(
                   colors: [Color(0xFF2D2F94), Color(0xFF4D4FFF)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: -40,
+            left: -60,
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.15),
                 shape: BoxShape.circle,
               ),
             ),
           ),
           Positioned(
-            top: 100,
-            right: -50,
+            bottom: -50,
+            right: -70,
             child: Container(
-              width: 150,
-              height: 150,
-              decoration: const BoxDecoration(
-                color: Color(0xFF4D4FFF), // Açık mavi renk
-                shape: BoxShape.circle,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 150,
-            left: -50,
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: const BoxDecoration(
-                color: Color(0xFF2D2F94), // Mavi renk
+              width: 250,
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.1),
                 shape: BoxShape.circle,
               ),
             ),
           ),
           // Ana içerik
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.3, // Ekran yüksekliğinin %30'u
+            top: MediaQuery.of(context).size.height * 0.3,
             left: 20,
             right: 20,
             child: Center(
               child: Container(
-                width: 320,
                 padding: const EdgeInsets.all(40.0),
                 margin: const EdgeInsets.symmetric(horizontal: 20.0),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.9), // Hafif gri saydam arka plan
-                  borderRadius: BorderRadius.circular(20.0), // Yuvarlatılmış köşeler
+                  color: Colors.white.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(20.0),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 10,
-                      offset: Offset(0, 4),
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 15,
+                      offset: Offset(0, 5),
                     ),
                   ],
                 ),
@@ -78,21 +72,23 @@ class WelcomeScreen extends StatelessWidget {
                     const Text(
                       'Hoş Geldiniz',
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 36,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        letterSpacing: 1.2,
+                        color: Colors.black87,
                       ),
                     ),
                     const SizedBox(height: 10),
                     const Text(
-                      'Giriş yap veya kayıt ol',
+                      'Uygulamamıza giriş yapın veya yeni bir hesap oluşturun.',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
+                        fontSize: 16,
+                        color: Colors.black54,
                       ),
                     ),
                     const SizedBox(height: 30),
-                    ElevatedButton(
+                    ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF4D4FFF),
                         foregroundColor: Colors.white,
@@ -112,10 +108,11 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Text('Giriş Yap'),
+                      icon: const Icon(Icons.login),
+                      label: const Text('Giriş Yap'),
                     ),
                     const SizedBox(height: 10),
-                    ElevatedButton(
+                    ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF2D2F94),
                         foregroundColor: Colors.white,
@@ -135,27 +132,11 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: const Text('Kayıt Ol'),
+                      icon: const Icon(Icons.app_registration),
+                      label: const Text('Kayıt Ol'),
                     ),
                   ],
                 ),
-              ),
-            ),
-          ),
-          // Alttaki renkli daireler
-          Positioned(
-            bottom: -80,
-            right: -50,
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF2D2F94), Color(0xFF4D4FFF)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                shape: BoxShape.circle,
               ),
             ),
           ),
